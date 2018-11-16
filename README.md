@@ -37,7 +37,7 @@
 打开页面之后，点击所有按钮，产生的日志将在远程界面上显示出来。
 
 如下图：
-
+![](https://github.com/cxwl3sxl/remoteconsole/blob/master/logview.PNG)
 本工具主要基于SingalR实现
 
 版权没有，欢迎拷贝
