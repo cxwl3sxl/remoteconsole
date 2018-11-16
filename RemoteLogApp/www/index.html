@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            font-size: 12px;
+            padding: 0px;
+            margin: 0;
+            font-family: "Microsoft Yahei",Helvetica,Arial,"Hiragino Sans GB","微软雅黑",STHeiti,"华文细黑",sans-serif;
+        }
+
+        .log {
+            color: #909399;
+        }
+
+        .info {
+            color: #409EFF;
+        }
+
+        .warn {
+            color: #E6A23C;
+        }
+
+        .error {
+            color: #F56C6C;
+        }
+
+        .time {
+            display: inline-block;
+            width: 65px;
+        }
+
+        .toolbar {
+            background: #eee;
+            border: solid 1px #ddd;
+            box-shadow: #ddd 0px 2px 5px;
+            margin-bottom: 5px;
+            padding: 2px;
+        }
+
+        #console {
+            padding: 2px;
+            position: absolute;
+            top: 33px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            overflow: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 60px;
+            text-align: center;
+            line-height: 25px;
+            border: solid 1px #bbb;
+            color: #fff;
+            cursor: pointer;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .btn-log {
+            border-color: #62656A;
+            background-color: #909399;
+            -ms-opacity: 0.5;
+            opacity: 0.5;
+        }
+
+        .btn-info {
+            border-color: #007AF5;
+            background-color: #409EFF;
+            -ms-opacity: 0.5;
+            opacity: 0.5;
+        }
+
+        .btn-warn {
+            border-color: #B57617;
+            background-color: #E6A23C;
+            -ms-opacity: 0.5;
+            opacity: 0.5;
+        }
+
+        .btn-error {
+            border-color: #E51010;
+            background-color: #F56C6C;
+            -ms-opacity: 0.5;
+            opacity: 0.5;
+        }
+
+        .btn-default {
+            color: #000;
+        }
+
+        .checked {
+            -ms-opacity: 1;
+            opacity: 1;
+        }
+
+        #message {
+            float: right;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <span data-action="log" class="btn btn-log checked">LOG</span>
+        <span data-action="info" class="btn btn-info checked">INFO</span>
+        <span data-action="warn" class="btn btn-warn checked">WARN</span>
+        <span data-action="error" class="btn btn-error checked">ERROR</span>
+        <span data-action="clean" class="btn btn-default">CLEAN</span>
+        <div id="message"></div>
+    </div>
+    <div id="console"></div>
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+        var logview = new function () {
+            this.filter = {
+                log: true,
+                info: true,
+                warn: true,
+                error: true
+            }
+            this.append = function(level, msg) {
+            var now = new Date();
+            var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var line = "<div class='" + level + "'><span class='time'>[" + time + "] </span>" + msg + "</div>";
+            var mainContainer = $("#console");
+            var scrollToContainer = mainContainer.find('div:last');
+            mainContainer.append(line);
+            mainContainer.scrollTop(
+              scrollToContainer.offset().top - mainContainer.offset().top + mainContainer.scrollTop()
+            );
+        }
+            this.log = function (msg) {
+                if (!this.filter.log) return;
+            this.append("log", msg);
+        }
+            this.info = function (msg) {
+                if (!this.filter.info) return;
+            this.append("info", msg);
+        }
+            this.warn = function (msg) {
+                if (!this.filter.warn) return;
+            this.append("warn", msg);
+        }
+            this.error = function (msg) {
+                if (!this.filter.error) return;
+            this.append("error", msg);
+        }
+    }
+
+    $(function () {
+        $("span.btn").click(function() {
+            var action = $(this).data("action");
+            if (action === "clean") {
+                if (confirm("Are you sure to clean the console?")) {
+                    $("#console").html("");
+                }
+                return;
+            }
+            if ($(this).hasClass("checked")) {
+                $(this).removeClass("checked");
+                logview.filter[action] = false;
+            } else {
+                $(this).addClass("checked");
+                logview.filter[action] = true;
+            }
+        });
+        var consoleHub = $.connection.consoleHub;
+        consoleHub.client.log = function(conn, msg) {
+            logview.log(msg);
+        };
+        consoleHub.client.info = function (conn, msg) {
+            logview.info(msg);
+        };
+        consoleHub.client.warn = function (conn, msg) {
+            logview.warn(msg);
+        };
+        consoleHub.client.error = function (conn, msg) {
+            logview.error(msg);
+        };
+        $.connection.hub.stateChanged(function (status) {
+            if (status.newState === 2 || status.newState === 4) {
+                $("#message").html("Disconnected");
+            }
+
+            if (status.newState === 4) {
+                setTimeout(function () {
+                    $("#message").html("ReConnecting...");
+                    $.connection.hub.start();
+                }, 10000);
+            }
+            if (status.newState === 1) {
+                $("#message").html("Server Connect Successed...");
+            }
+        });
+        $.connection.hub.start().done(function() {
+            consoleHub.server.regist("Manager");
+            $("#message").html("Server Connect Successed...");
+        });
+    });
+    </script>
+</body>
+</html>
