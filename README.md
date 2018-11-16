@@ -1,4 +1,4 @@
-#Remote Console Log
+# Remote Console Log
 远程日志工具
 用于将写入console的日志信息发送到远程，然后在web界面上进行查看
 主要使用方法为：
