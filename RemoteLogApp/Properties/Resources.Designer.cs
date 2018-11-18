@@ -114,6 +114,9 @@ namespace RemoteLogApp.Properties {
         ///    &lt;style&gt;
         ///        body {
         ///            font-size: 12px;
+        ///            padding: 0px;
+        ///            margin: 0;
+        ///            font-family: &quot;Microsoft Yahei&quot;,Helvetica,Arial,&quot;Hiragino Sans GB&quot;,&quot;微软雅黑&quot;,STHeiti,&quot;华文细黑&quot;,sans-serif;
         ///        }
         ///
         ///        .log {
@@ -125,15 +128,7 @@ namespace RemoteLogApp.Properties {
         ///        }
         ///
         ///        .warn {
-        ///            color: #E6A23C;
-        ///        }
-        ///
-        ///        .error {
-        ///            color: #F56C6C;
-        ///        }
-        ///        .time {
-        ///            display: inline-block;
-        ///            width: 8 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///          [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string index {
             get {
@@ -244,6 +239,136 @@ namespace RemoteLogApp.Properties {
         internal static string jquery_signalR_2_4_0_min {
             get {
                 return ResourceManager.GetString("jquery_signalR_2_4_0_min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_AspNet_SignalR_Core {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_AspNet_SignalR_Core", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_AspNet_SignalR_Owin {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_AspNet_SignalR_Owin", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_Owin {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Owin", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_Owin_Cors {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Owin_Cors", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_Owin_Diagnostics {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Owin_Diagnostics", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_Owin_FileSystems {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Owin_FileSystems", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_Owin_Host_HttpListener {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Owin_Host_HttpListener", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_Owin_Hosting {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Owin_Hosting", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_Owin_Security {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Owin_Security", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Microsoft_Owin_StaticFiles {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Owin_StaticFiles", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Newtonsoft_Json {
+            get {
+                object obj = ResourceManager.GetObject("Newtonsoft_Json", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Owin {
+            get {
+                object obj = ResourceManager.GetObject("Owin", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] System_Web_Cors {
+            get {
+                object obj = ResourceManager.GetObject("System_Web_Cors", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
