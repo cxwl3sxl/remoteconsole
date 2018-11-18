@@ -1,4 +1,4 @@
-#Remote Console Log
+# Remote Console Log
 远程日志工具
 用于将写入console的日志信息发送到远程，然后在web界面上进行查看
 主要使用方法为：
@@ -37,7 +37,7 @@
 打开页面之后，点击所有按钮，产生的日志将在远程界面上显示出来。
 
 如下图：
-
+![](https://github.com/cxwl3sxl/remoteconsole/blob/master/logview.PNG)
 本工具主要基于SingalR实现
 
 版权没有，欢迎拷贝
