@@ -117,6 +117,7 @@
         <span data-action="warn" class="btn btn-warn checked">WARN</span>
         <span data-action="error" class="btn btn-error checked">ERROR</span>
         <span data-action="clean" class="btn btn-default">CLEAN</span>
+        <span data-action="refresh" class="btn btn-default">REFRESH</span>
         <div id="message"></div>
     </div>
     <div id="console"></div>
@@ -164,9 +165,15 @@
         $("span.btn").click(function() {
             var action = $(this).data("action");
             if (action === "clean") {
-                if (confirm("Are you sure to clean the console?")) {
+                if (confirm("Clear the console?")) {
                     $("#console").html("");
                 }
+                return;
+            }
+            if (action === "refresh") {
+                if (confirm("Are you sure to reload this page?\nall data will be lost!")) {
+                    window.location.reload();
+                } 
                 return;
             }
             if ($(this).hasClass("checked")) {
