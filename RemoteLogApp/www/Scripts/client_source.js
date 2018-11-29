@@ -88,6 +88,10 @@
 
             warn: function (msg) {
                 return proxies['consoleHub'].invoke.apply(proxies['consoleHub'], $.merge(["Warn"], $.makeArray(arguments)));
+            },
+
+            debug: function (msg) {
+                return proxies['consoleHub'].invoke.apply(proxies['consoleHub'], $.merge(["Debug"], $.makeArray(arguments)));
             }
         };
 
@@ -110,6 +114,7 @@
         var oldInfo = console.info;
         var oldWarn = console.warn;
         var oldError = console.error;
+        var oldDebug = console.debug;
         console.log = function (message) {
             consoleHub.server.log(message);
             oldLog.apply(console, arguments);
@@ -125,6 +130,10 @@
         console.error = function (message) {
             consoleHub.server.error(message);
             oldError.apply(console, arguments);
+        };
+        console.debug = function (message) {
+            consoleHub.server.debug(message);
+            oldDebug.apply(console, arguments);
         };
     });
 })();

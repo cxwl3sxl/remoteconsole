@@ -28,6 +28,10 @@
             color: #F56C6C;
         }
 
+        .debug {
+            color: #333;
+        }
+
         .time {
             display: inline-block;
             width: 65px;
@@ -66,7 +70,12 @@
             -ms-user-select: none;
             user-select: none;
         }
-
+        .btn-debug {
+            border-color: #000;
+            background-color: #333;
+            -ms-opacity: 0.5;
+            opacity: 0.5;
+        }
         .btn-log {
             border-color: #62656A;
             background-color: #909399;
@@ -112,6 +121,7 @@
 </head>
 <body>
     <div class="toolbar">
+        <span data-action="debug" class="btn btn-debug checked">DEBUG</span>
         <span data-action="log" class="btn btn-log checked">LOG</span>
         <span data-action="info" class="btn btn-info checked">INFO</span>
         <span data-action="warn" class="btn btn-warn checked">WARN</span>
@@ -130,93 +140,101 @@
                 log: true,
                 info: true,
                 warn: true,
-                error: true
+                error: true,
+                debug: true
             }
-            this.append = function(level, msg) {
-            var now = new Date();
-            var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-            var line = "<div class='" + level + "'><span class='time'>[" + time + "] </span>" + msg + "</div>";
-            var mainContainer = $("#console");
-            var scrollToContainer = mainContainer.find('div:last');
-            mainContainer.append(line);
-            mainContainer.scrollTop(
-              scrollToContainer.offset().top - mainContainer.offset().top + mainContainer.scrollTop()
-            );
-        }
+            this.append = function (level, msg) {
+                var now = new Date();
+                var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+                var line = "<div class='" + level + "'><span class='time'>[" + time + "] </span>" + msg + "</div>";
+                var mainContainer = $("#console");
+                var scrollToContainer = mainContainer.find('div:last');
+                mainContainer.append(line);
+                mainContainer.scrollTop(
+                    scrollToContainer.offset().top - mainContainer.offset().top + mainContainer.scrollTop()
+                );
+            }
             this.log = function (msg) {
                 if (!this.filter.log) return;
-            this.append("log", msg);
-        }
+                this.append("log", msg);
+            }
             this.info = function (msg) {
                 if (!this.filter.info) return;
-            this.append("info", msg);
-        }
+                this.append("info", msg);
+            }
             this.warn = function (msg) {
                 if (!this.filter.warn) return;
-            this.append("warn", msg);
-        }
+                this.append("warn", msg);
+            }
             this.error = function (msg) {
                 if (!this.filter.error) return;
-            this.append("error", msg);
+                this.append("error", msg);
+            }
+            this.debug = function (msg) {
+                if (!this.filter.debug) return;
+                this.append("debug", msg);
+            }
         }
-    }
 
-    $(function () {
-        $("span.btn").click(function() {
-            var action = $(this).data("action");
-            if (action === "clean") {
-                if (confirm("Clear the console?")) {
-                    $("#console").html("");
+        $(function () {
+            $("span.btn").click(function () {
+                var action = $(this).data("action");
+                if (action === "clean") {
+                    if (confirm("Clear the console?")) {
+                        $("#console").html("");
+                    }
+                    return;
                 }
-                return;
-            }
-            if (action === "refresh") {
-                if (confirm("Are you sure to reload this page?\nall data will be lost!")) {
-                    window.location.reload();
-                } 
-                return;
-            }
-            if ($(this).hasClass("checked")) {
-                $(this).removeClass("checked");
-                logview.filter[action] = false;
-            } else {
-                $(this).addClass("checked");
-                logview.filter[action] = true;
-            }
-        });
-        var consoleHub = $.connection.consoleHub;
-        consoleHub.client.log = function(conn, msg) {
-            logview.log(msg);
-        };
-        consoleHub.client.info = function (conn, msg) {
-            logview.info(msg);
-        };
-        consoleHub.client.warn = function (conn, msg) {
-            logview.warn(msg);
-        };
-        consoleHub.client.error = function (conn, msg) {
-            logview.error(msg);
-        };
-        $.connection.hub.stateChanged(function (status) {
-            if (status.newState === 2 || status.newState === 4) {
-                $("#message").html("Disconnected");
-            }
+                if (action === "refresh") {
+                    if (confirm("Are you sure to reload this page?\nall data will be lost!")) {
+                        window.location.reload();
+                    }
+                    return;
+                }
+                if ($(this).hasClass("checked")) {
+                    $(this).removeClass("checked");
+                    logview.filter[action] = false;
+                } else {
+                    $(this).addClass("checked");
+                    logview.filter[action] = true;
+                }
+            });
+            var consoleHub = $.connection.consoleHub;
+            consoleHub.client.log = function (conn, msg) {
+                logview.log(msg);
+            };
+            consoleHub.client.info = function (conn, msg) {
+                logview.info(msg);
+            };
+            consoleHub.client.warn = function (conn, msg) {
+                logview.warn(msg);
+            };
+            consoleHub.client.error = function (conn, msg) {
+                logview.error(msg);
+            };
+            consoleHub.client.debug = function (conn, msg) {
+                logview.debug(msg);
+            };
+            $.connection.hub.stateChanged(function (status) {
+                if (status.newState === 2 || status.newState === 4) {
+                    $("#message").html("Disconnected");
+                }
 
-            if (status.newState === 4) {
-                setTimeout(function () {
-                    $("#message").html("ReConnecting...");
-                    $.connection.hub.start();
-                }, 10000);
-            }
-            if (status.newState === 1) {
-                $("#message").html("Server Connect Successed...");
-            }
+                if (status.newState === 4) {
+                    setTimeout(function () {
+                        $("#message").html("ReConnecting...");
+                        $.connection.hub.start();
+                    }, 10000);
+                }
+                if (status.newState === 1) {
+                    $("#message").html("Server Connect Succeed...");
+                }
+            });
+            $.connection.hub.start().done(function () {
+                consoleHub.server.regist("Manager");
+                $("#message").html("Server Connect Succeed...");
+            });
         });
-        $.connection.hub.start().done(function() {
-            consoleHub.server.regist("Manager");
-            $("#message").html("Server Connect Successed...");
-        });
-    });
     </script>
 </body>
 </html>

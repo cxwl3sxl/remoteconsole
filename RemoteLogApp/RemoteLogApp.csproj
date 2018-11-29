@@ -161,6 +161,7 @@
     <Content Include="dlls\Newtonsoft.Json.dll" />
     <Content Include="dlls\Owin.dll" />
     <Content Include="dlls\System.Web.Cors.dll" />
+    <Content Include="www\demo.html" />
     <Content Include="www\index.html" />
     <Content Include="www\Scripts\client.js" />
     <Content Include="www\Scripts\client_source.js" />
