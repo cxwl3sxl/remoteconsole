@@ -70,12 +70,14 @@
             -ms-user-select: none;
             user-select: none;
         }
+
         .btn-debug {
             border-color: #000;
             background-color: #333;
             -ms-opacity: 0.5;
             opacity: 0.5;
         }
+
         .btn-log {
             border-color: #62656A;
             background-color: #909399;
@@ -145,7 +147,13 @@
             }
             this.append = function (level, msg) {
                 var now = new Date();
-                var time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+                var h = now.getHours() + "";
+                var m = now.getMinutes() + "";
+                var s = now.getSeconds() + "";
+                var time =
+                    (h.length === 2 ? h : ("0" + h)) + ":" +
+                    (m.length === 2 ? m : ("0" + m)) + ":" +
+                    (s.length === 2 ? s : ("0" + s));
                 var line = "<div class='" + level + "'><span class='time'>[" + time + "] </span>" + msg + "</div>";
                 var mainContainer = $("#console");
                 var scrollToContainer = mainContainer.find('div:last');
