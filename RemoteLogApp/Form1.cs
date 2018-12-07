@@ -20,6 +20,7 @@ namespace RemoteLogApp
                 _webServer.Start();
                 labelStatus.Text = $"Started";
                 linkLabelUrl.Enabled = true;
+                linkLabelUrl.Text = _webServer.Url;
             }
             catch (Exception ex)
             {
