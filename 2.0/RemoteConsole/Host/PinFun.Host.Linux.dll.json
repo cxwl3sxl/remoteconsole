@@ -1,0 +1,23 @@
+﻿{
+  "LogAllApiRequest": true,
+  "Services": [ "PinFun.Core.ServiceHost.JsonTcpApi.JsonTcpApiHost", "PinFun.Core.ServiceHost.WebApi.WebApiHost", "PinFun.Core.ServiceHost.WebPush.WebPushHost" ],
+  "TcpApiHost": {
+    "Port": 8687,
+    "ConnectionLog": true,
+    "NettyLog": false,
+    "Certificate": null
+  },
+  "WebApiHost": {
+    "Port": 8688,
+    "ApiUrl": "/api",
+    "StaticFileConfig": {
+      "Uri": "/",
+      "BaseDir": "www"
+    },
+    "Certificate": null
+  },
+  "WebPushHost": {
+    "Port": 8689,
+    "Certificate": null
+  }
+}

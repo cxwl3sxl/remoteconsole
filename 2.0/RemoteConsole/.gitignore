@@ -1,0 +1,6 @@
+/packages
+/RemoteLogApp/bin
+/RemoteLogApp/obj
+/.vs
+obj
+debug
