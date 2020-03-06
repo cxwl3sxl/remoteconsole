@@ -4,4 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../dest\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="PinFun.Core">
+      <HintPath>..\Host\PinFun.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

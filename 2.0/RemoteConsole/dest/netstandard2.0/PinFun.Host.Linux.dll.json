@@ -1,0 +1,17 @@
+﻿{
+  "LogAllApiRequest": true,
+  "Services": [ "PinFun.Core.ServiceHost.WebApi.WebApiHost", "PinFun.Core.ServiceHost.WebPush.WebPushHost" ],
+  "WebApiHost": {
+    "Port": 8688,
+    "ApiUrl": "/api",
+    "StaticFileConfig": {
+      "Uri": "/",
+      "BaseDir": "www"
+    },
+    "Certificate": null
+  },
+  "WebPushHost": {
+    "Port": 8689,
+    "Certificate": null
+  }
+}
