@@ -50,5 +50,10 @@ namespace RemoteLogApp
         {
             Clients.Group("Manager").Error(GetAppName(), msg);
         }
+
+        public void Debug(string msg)
+        {
+            Clients.Group("Manager").Debug(GetAppName(), msg);
+        }
     }
 }

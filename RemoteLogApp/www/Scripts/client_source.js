@@ -1,4 +1,54 @@
-﻿(function ($, window, undefined) {
+﻿var remoteConsoleHub = null;
+var allLogs = [];
+(function () {
+    var oldLog = console.log;
+    var oldInfo = console.info;
+    var oldWarn = console.warn;
+    var oldError = console.error;
+    var oldDebug = console.debug;
+    console.log = function (message) {
+        if (remoteConsoleHub == null) {
+            allLogs.push({ l: "log", m: message });
+        } else {
+            remoteConsoleHub.server.log(message);
+        }
+        oldLog.apply(console, arguments);
+    };
+    console.info = function (message) {
+        if (remoteConsoleHub == null) {
+            allLogs.push({ l: "info", m: message });
+        } else {
+            remoteConsoleHub.server.info(message);
+        }
+        oldInfo.apply(console, arguments);
+    };
+    console.warn = function (message) {
+        if (remoteConsoleHub == null) {
+            allLogs.push({ l: "warn", m: message });
+        } else {
+            remoteConsoleHub.server.warn(message);
+        }
+        oldWarn.apply(console, arguments);
+    };
+    console.error = function (message) {
+        if (remoteConsoleHub == null) {
+            allLogs.push({ l: "error", m: message });
+        } else {
+            remoteConsoleHub.server.error(message);
+        }
+        oldError.apply(console, arguments);
+    };
+    console.debug = function (message) {
+        if (remoteConsoleHub == null) {
+            allLogs.push({ l: "debug", m: message });
+        } else {
+            remoteConsoleHub.server.debug(message);
+        }
+        oldDebug.apply(console, arguments);
+    };
+})();
+
+(function ($, window, undefined) {
     /// <param name="$" type="jQuery" />
     "use strict";
 
@@ -88,6 +138,10 @@
 
             warn: function (msg) {
                 return proxies['consoleHub'].invoke.apply(proxies['consoleHub'], $.merge(["Warn"], $.makeArray(arguments)));
+            },
+
+            debug: function (msg) {
+                return proxies['consoleHub'].invoke.apply(proxies['consoleHub'], $.merge(["Debug"], $.makeArray(arguments)));
             }
         };
 
@@ -106,25 +160,26 @@
     $.connection.hub.start().done(function () {
         consoleHub.server.regist(Math.random());
         console.log("远程日志服务连接成功，正在重写本地的console方法...");
-        var oldLog = console.log;
-        var oldInfo = console.info;
-        var oldWarn = console.warn;
-        var oldError = console.error;
-        console.log = function (message) {
-            consoleHub.server.log(message);
-            oldLog.apply(console, arguments);
-        };
-        console.info = function (message) {
-            consoleHub.server.info(message);
-            oldInfo.apply(console, arguments);
-        };
-        console.warn = function (message) {
-            consoleHub.server.warn(message);
-            oldWarn.apply(console, arguments);
-        };
-        console.error = function (message) {
-            consoleHub.server.error(message);
-            oldError.apply(console, arguments);
-        };
+        for (var i = 0; i < allLogs.length; i++) {
+            var log = allLogs[i];
+            switch (log.l) {
+                case "log":
+                    consoleHub.server.log(log.m);
+                    break;
+                case "info":
+                    consoleHub.server.info(log.m);
+                    break;
+                case "warn":
+                    consoleHub.server.warn(log.m);
+                    break;
+                case "error":
+                    consoleHub.server.error(log.m);
+                    break;
+                case "debug":
+                    consoleHub.server.debug(log.m);
+                    break;
+            }
+        }
+        remoteConsoleHub = consoleHub;
     });
 })();

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Microsoft.Owin.Hosting;
 
 namespace RemoteLogApp
 {
     public partial class Form1 : Form
     {
-        private string _url = "";
-        private IDisposable _server;
+        private readonly WebServer _webServer = new WebServer();
+
         public Form1()
         {
             InitializeComponent();
@@ -19,12 +17,10 @@ namespace RemoteLogApp
         {
             try
             {
-                var port = ConfigurationManager.AppSettings["Port"];
-                if (string.IsNullOrWhiteSpace(port)) port = "8081";
-                _url = "http://localhost:8083".Replace("8083", port);
-                _server = WebApp.Start<Startup>(_url.Replace("localhost", "*"));
+                _webServer.Start();
                 labelStatus.Text = $"Started";
                 linkLabelUrl.Enabled = true;
+                linkLabelUrl.Text = _webServer.Url;
             }
             catch (Exception ex)
             {
@@ -42,7 +38,7 @@ namespace RemoteLogApp
             try
             {
                 notifyIcon1.Dispose();
-                _server.Dispose();
+                _webServer.Stop();
             }
             catch (Exception ex)
             {
@@ -52,12 +48,12 @@ namespace RemoteLogApp
 
         private void 控制台ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(_url);
+            Process.Start(_webServer.Url);
         }
 
         private void 复制脚本ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Clipboard.SetDataObject($"<script src='{_url}/Scripts/client.js'></script>");
+            Clipboard.SetDataObject($"<script src='{_webServer.Url}/Scripts/client.js'></script>");
             MessageBox.Show("复制成功，请将内容粘贴到需要调试的页面！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -92,7 +88,7 @@ namespace RemoteLogApp
 
         private void linkLabelUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(_url);
+            Process.Start(_webServer.Url);
         }
     }
 }

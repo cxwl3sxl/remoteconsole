@@ -47,7 +47,7 @@ namespace RemoteLogApp.Properties {
         }
         
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性
+        ///   使用此强类型资源类，为所有资源查找
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -71,22 +71,23 @@ namespace RemoteLogApp.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function ($, window, undefined) {
-        ///    /// &lt;param name=&quot;$&quot; type=&quot;jQuery&quot; /&gt;
-        ///    &quot;use strict&quot;;
-        ///
-        ///    if (typeof ($.signalR) !== &quot;function&quot;) {
-        ///        throw new Error(&quot;SignalR: SignalR is not loaded. Please ensure jquery.signalR-x.js is referenced before ~/signalr/js.&quot;);
-        ///    }
-        ///
-        ///    var signalR = $.signalR;
-        ///
-        ///    function makeProxyCallback(hub, callback) {
-        ///        return function () {
-        ///            // Call the client hub method
-        ///            callback.apply(hub, $.makeArray(arguments));
-        ///        };
-        ///     [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 var remoteConsoleHub = null;
+        ///var allLogs = [];
+        ///(function () {
+        ///    var oldLog = console.log;
+        ///    var oldInfo = console.info;
+        ///    var oldWarn = console.warn;
+        ///    var oldError = console.error;
+        ///    var oldDebug = console.debug;
+        ///    console.log = function (message) {
+        ///        if (remoteConsoleHub == null) {
+        ///            allLogs.push({ l: &quot;log&quot;, m: message });
+        ///        } else {
+        ///            remoteConsoleHub.server.log(message);
+        ///        }
+        ///        oldLog.apply(console, arguments);
+        ///    };
+        ///    console.inf [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string client_source {
             get {
@@ -155,8 +156,7 @@ namespace RemoteLogApp.Properties {
         ///(function( window, undefined ) {
         ///
         ///// Use the correct document accordingly with window argument (sandbox)
-        ///var document = window.document,
-        ///	navigat [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///var document = window. [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string jquery_1_6_4 {
             get {
@@ -166,7 +166,7 @@ namespace RemoteLogApp.Properties {
         
         /// <summary>
         ///   查找类似 /*! jQuery v1.6.4 http://jquery.com/ | http://jquery.org/license */
-        ///(function(a,b){function cu(a){return f.isWindow(a)?a:a.nodeType===9?a.defaultView||a.parentWindow:!1}function cr(a){if(!cg[a]){var b=c.body,d=f(&quot;&lt;&quot;+a+&quot;&gt;&quot;).appendTo(b),e=d.css(&quot;display&quot;);d.remove();if(e===&quot;none&quot;||e===&quot;&quot;){ch||(ch=c.createElement(&quot;iframe&quot;),ch.frameBorder=ch.width=ch.height=0),b.appendChild(ch);if(!ci||!ch.createElement)ci=(ch.contentWindow||ch.contentDocument).document,ci.write((c.compatMode===&quot;CSS1Compat&quot;?&quot;&lt;!doctype html&gt;&quot;:&quot;&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///(function(a,b){function cu(a){return f.isWindow(a)?a:a.nodeType===9?a.defaultView||a.parentWindow:!1}function cr(a){if(!cg[a]){var b=c.body,d=f(&quot;&lt;&quot;+a+&quot;&gt;&quot;).appendTo(b),e=d.css(&quot;display&quot;);d.remove();if(e===&quot;none&quot;||e===&quot;&quot;){ch||(ch=c.createElement(&quot;iframe&quot;),ch.frameBorder=ch.width=ch.height=0),b.appendChild(ch);if(!ci||!ch.createElement)ci=(ch.contentWindow||ch.contentDocument).document,ci.write((c.compatMode===&quot;CSS1Compat&quot;?&quot;&lt;!doctype html&gt;&quot;:&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string jquery_1_6_4_min {
             get {
@@ -192,7 +192,7 @@ namespace RemoteLogApp.Properties {
         ///*
         ///* Copyright 2010, John Resig
         ///*
-        ///* Permission is hereby granted, free of charge, to any person obtai [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///* Permission is hereby granted, free of charge, to [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string jquery_1_6_4_vsdoc {
             get {
@@ -234,7 +234,7 @@ namespace RemoteLogApp.Properties {
         /// * Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
         /// *
         /// */
-        ///(function(n,t,i){function w(t,i){var u,f;if(n.isArray(t)){for(u=t.length-1;u&gt;=0;u--)f=t[u],n.type(f)===&quot;string&quot;&amp;&amp;r.transports[f]||(i.log(&quot;Invalid transport: &quot;+f+&quot;, removing it from the transports list.&quot;),t.splice(u,1));t.length===0&amp;&amp;(i.log(&quot;No transports remain wi [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///(function(n,t,i){function w(t,i){var u,f;if(n.isArray(t)){for(u=t.length-1;u&gt;=0;u--)f=t[u],n.type(f)===&quot;string&quot;&amp;&amp;r.transports[f]||(i.log(&quot;Invalid transport: &quot;+f+&quot;, removing it from the transports list.&quot;),t.splice(u,1));t.length===0&amp;&amp;(i.log(&quot;No transports r [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string jquery_signalR_2_4_0_min {
             get {
