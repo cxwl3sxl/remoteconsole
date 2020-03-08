@@ -2,6 +2,14 @@
   <div class="dashboard">
     <div class="header">
       <div class="align-left">
+        <div
+          :class="'switch-btn btn-trace '+(trace?'':'disabled')"
+          @click="switchLevel('trace')"
+        >TRACE</div>
+        <div
+          :class="'switch-btn btn-debug '+(debug?'':'disabled')"
+          @click="switchLevel('debug')"
+        >DEBUG</div>
         <div :class="'switch-btn btn-log '+(log?'':'disabled')" @click="switchLevel('log')">LOG</div>
         <div :class="'switch-btn btn-info '+(info?'':'disabled')" @click="switchLevel('info')">INFO</div>
         <div :class="'switch-btn btn-warn '+(warn?'':'disabled')" @click="switchLevel('warn')">WARN</div>
@@ -30,6 +38,8 @@ export default {
   name: "LogView",
   data() {
     return {
+      trace: true,
+      debug: true,
       log: true,
       info: true,
       warn: true,
@@ -51,6 +61,12 @@ export default {
   methods: {
     switchLevel: function(level) {
       switch (level) {
+        case "trace":
+          this.trace = !this.trace;
+          break;
+        case "debug":
+          this.debug = !this.debug;
+          break;
         case "log":
           this.log = !this.log;
           break;
@@ -75,6 +91,8 @@ export default {
       if (loginfo.Level === "info" && !this.info) return;
       if (loginfo.Level === "warn" && !this.warn) return;
       if (loginfo.Level === "error" && !this.error) return;
+      if (loginfo.Level === "trace" && !this.trace) return;
+      if (loginfo.Level === "debug" && !this.debug) return;
       this.logdata.unshift({
         id: this.logdata.length + 1,
         level: loginfo.Level,
@@ -128,6 +146,14 @@ export default {
   color: #fff;
   cursor: pointer;
 }
+.btn-trace {
+  border-color: #bcaaa4;
+  background-color: #795548;
+}
+.btn-debug {
+  border-color: #9575cd;
+  background-color: #5e35b1;
+}
 .btn-log {
   border-color: #62656a;
   background-color: #909399;
@@ -159,6 +185,12 @@ export default {
   display: inline-block;
 }
 
+.log-item-trace {
+  color: #795548;
+}
+.log-item-debug {
+  color: #5e35b1;
+}
 .log-item-log {
   color: #62656a;
 }
