@@ -15,12 +15,18 @@ function send(data) {
             }
         }
     }
-    xhr.open("GET", api + "?category=" + data.category + "&level=" + data.level + "&time=" + data.time + "&msg=" + data.msg, true)
+    //xhr.open("GET", api + "?category=" + data.category + "&level=" + data.level + "&time=" + data.time + "&msg=" + data.msg, true);
+    xhr.open("POST", api, true);
+    // xhr.setRequestHeader('Access-Control-Request-Headers', "content-type");
+    // xhr.setRequestHeader('Access-Control-Request-Method', "POST");
+    // xhr.setRequestHeader('Origin', window.location);
+    //xhr.setRequestHeader("Origin", "*");
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send();
+    xhr.send(data);
 }
 function getDatetime() {
-
+    let now = new Date();
+    return now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDay() + ' ' + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 }
 // define a new console
 var myConsole = (function (oldCons) {
