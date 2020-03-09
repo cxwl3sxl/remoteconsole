@@ -26,7 +26,7 @@
     <div class="body">
       <div v-for="log in logdata" :key="log.id" :class="'log-item log-item-'+log.level">
         <div class="time">[[{{log.time}}]]</div>
-        <div class="msg">{{log.time}} {{log.id}}</div>
+        <div class="msg">{{log.msg}}</div>
       </div>
     </div>
   </div>
@@ -56,7 +56,9 @@ export default {
     window.webEvent.on("RemoteConsole.LogRequest", this.appendLog);
   },
   destroyed() {
-    window.webEvent.off("RemoteConsole.LogRequest", this.appendLog);
+    if (window.webEvent) {
+      window.webEvent.off("RemoteConsole.LogRequest", this.appendLog);
+    }
   },
   methods: {
     switchLevel: function(level) {

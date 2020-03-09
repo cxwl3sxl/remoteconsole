@@ -17,10 +17,11 @@ function send(data) {
     }
     xhr.open("POST", api, true)
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(data);
+    xhr.send(JSON.stringify(data));
 }
 function getDatetime() {
-
+    let now = new Date();
+    return now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDay() + ' ' + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 }
 // define a new console
 var myConsole = (function (oldCons) {
