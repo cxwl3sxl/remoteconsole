@@ -15,7 +15,7 @@ function send(data) {
             }
         }
     }
-    xhr.open("POST", api, true)
+    xhr.open("POST", api, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
 }
