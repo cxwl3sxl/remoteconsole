@@ -15,9 +15,9 @@ function send(data) {
             }
         }
     }
-    xhr.open("POST", api, true)
+    xhr.open("GET", api + "?category=" + data.category + "&level=" + data.level + "&time=" + data.time + "&msg=" + data.msg, true)
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(data);
+    xhr.send();
 }
 function getDatetime() {
 
