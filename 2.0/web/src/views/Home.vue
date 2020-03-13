@@ -4,13 +4,14 @@
     <div class="title">欢迎使用远程日志服务</div>
     <div class="help">
       <p>
-        1.
-        <button class="btnCopy" :data-clipboard-text="tobeCopyScript" @click="copyScript">复制</button>下面的脚本到你的页面即可
-        <span class="code">&lt;script src="{{script}}"&lt;/script&gt;</span>
+        1. 自动
+        <button @click="generateChannel()">生成</button>一个或者手动
+        <button @click="inputChannel()">输入</button>一个Channel编号（可选）
       </p>
       <p>
-        2. 重新
-        <button @click="generateChannel()">生成</button>一个Channel编号（可选）
+        2.
+        <button class="btnCopy" :data-clipboard-text="tobeCopyScript" @click="copyScript">复制</button>下面的脚本到你的页面即可
+        <span class="code">&lt;script src="{{script}}"&gt;&lt;/script&gt;</span>
       </p>
       <p>
         3. 在本页面
@@ -40,11 +41,11 @@ export default {
       localStorage.setItem("_channelId", preChannel);
     }
     this.channel = preChannel;
-    this.script = `${window.location.protocol}//${window.location.host}/script/log.js?channel=${this.channel}`;
-    this.setCopyScript();
+    this.updateScript();
   },
   methods: {
-    setCopyScript: function() {
+    updateScript: function() {
+      this.script = `${window.location.protocol}//${window.location.host}/script/log.js?channel=${this.channel}`;
       this.tobeCopyScript = "<script src='" + this.script + "'><" + "/script>";
     },
     copyScript: function() {
@@ -71,12 +72,20 @@ export default {
       let tmpChannel = this.newId();
       localStorage.setItem("_channelId", tmpChannel);
       this.channel = tmpChannel;
-      this.script = `${window.location.protocol}//${window.location.host}/script/log.js?channel=${this.channel}`;
-      this.setCopyScript();
+      this.updateScript();
     },
     login: function() {
       initWs(() => this.channel);
       this.$router.push({ path: `/LogView/${this.channel}` });
+    },
+    inputChannel: function() {
+      let channel = window.prompt(
+        "请输入您想要的Channel号，注意：相同的Channel日志是共享的。"
+      );
+      if (channel) {
+        this.channel = channel;
+        this.updateScript();
+      }
     }
   }
 };

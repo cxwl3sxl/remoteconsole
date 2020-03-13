@@ -120,7 +120,7 @@ export default {
   float: right;
 }
 .dashboard {
-  font-size: 12px;
+  font-size: 14px;
   text-align: left;
 }
 .header {
