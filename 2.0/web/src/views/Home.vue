@@ -83,6 +83,7 @@ export default {
         "请输入您想要的Channel号，注意：相同的Channel日志是共享的。"
       );
       if (channel) {
+        localStorage.setItem("_channelId", channel);
         this.channel = channel;
         this.updateScript();
       }
