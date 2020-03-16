@@ -26,7 +26,9 @@
     <div class="body">
       <div v-for="log in logdata" :key="log.id" :class="'log-item log-item-'+log.level">
         <div class="time">[[{{log.time}}]]</div>
-        <div class="msg" v-html="log.msg"></div>
+        <div class="msg">
+          <log :msg="log.msg">v-html="log.msg"</log>
+        </div>
       </div>
     </div>
   </div>
@@ -34,8 +36,12 @@
 
 
 <script>
+import Log from "@/components/Log";
 export default {
   name: "LogView",
+  components: {
+    log: Log
+  },
   data() {
     return {
       trace: true,

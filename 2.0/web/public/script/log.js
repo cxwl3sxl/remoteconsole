@@ -1,7 +1,8 @@
 let scriptSrc = document.getElementsByTagName('script')[document.getElementsByTagName('script').length - 1].src;
 let url = new URL(scriptSrc);
 let channel = url.searchParams.get('channel');
-let api = url.protocol + "//" + url.host + "/api/log/send";
+//let api = url.protocol + "//" + url.host + "/api/log/send";
+let api = "http://122.51.155.15:8688/api/log/send";
 //console.debug("Remote Log Channel：" + channel);
 function send(data) {
     var xhr = new XMLHttpRequest()
