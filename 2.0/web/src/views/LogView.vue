@@ -26,7 +26,7 @@
     <div class="body">
       <div v-for="log in logdata" :key="log.id" :class="'log-item log-item-'+log.level">
         <div class="time">[[{{log.time}}]]</div>
-        <div class="msg">{{log.msg}}</div>
+        <div class="msg" v-html="log.msg"></div>
       </div>
     </div>
   </div>
@@ -53,11 +53,13 @@ export default {
       return;
     }
     //this.a = this.$route.params.channel;
+    window.webEvent.on("onError", this.webEventError);
     window.webEvent.on("RemoteConsole.LogRequest", this.appendLog);
   },
   destroyed() {
     if (window.webEvent) {
       window.webEvent.off("RemoteConsole.LogRequest", this.appendLog);
+      window.webEvent.off("onError", this.webEventError);
     }
   },
   methods: {
@@ -104,6 +106,13 @@ export default {
     },
     logout: function() {
       this.$router.push({ path: "/" });
+    },
+    webEventError: function(msg) {
+      this.appendLog({
+        Level: "error",
+        Message: `数据无法解析：${msg}`,
+        Time: new Date()
+      });
     }
   }
 };
@@ -180,11 +189,12 @@ export default {
   padding: 0 5px;
 }
 .time {
-  display: inline-block;
   padding-right: 10px;
+  float: left;
 }
 .msg {
   display: inline-block;
+  width: calc(100vw - 150px);
 }
 
 .log-item-trace {

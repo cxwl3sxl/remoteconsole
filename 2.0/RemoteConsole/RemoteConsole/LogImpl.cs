@@ -10,15 +10,11 @@ namespace RemoteConsole
             WebEvent.Instance.Raise(new LogRequest()
             {
                 Level = level,
-                Message = msg,
+                Message = msg.Replace("\n", "<br/>"),
                 Time = time
             },
-                conn =>
-                {
-                    Console.WriteLine("category=" + conn.Session["category"]);
-                    return string.Equals(category, conn.Session["category"]?.ToString(),
-                        StringComparison.OrdinalIgnoreCase);
-                });
+                conn => string.Equals(category, conn.Session["category"]?.ToString(),
+                    StringComparison.OrdinalIgnoreCase));
         }
     }
 }

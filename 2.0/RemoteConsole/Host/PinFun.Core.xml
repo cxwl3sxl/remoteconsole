@@ -4093,6 +4093,7 @@
         <member name="M:PinFun.Core.Net.Http.HttpResponse.Write(System.String,System.Text.Encoding)">
             <summary>
             向当前输出中写入文本信息，注意，最后一次写入的数据将在调用<see cref="M:PinFun.Core.Net.Http.HttpResponse.End"/>方法时候写出
+            <para>注意：如果需要多次调用Write方法，请在外部自行设置content-length</para>
             </summary>
             <param name="content">文本内容</param>
             <param name="encoding">编码方式</param>
@@ -4100,12 +4101,14 @@
         <member name="M:PinFun.Core.Net.Http.HttpResponse.Write(System.String)">
             <summary>
             向当前输出中写入文本信息, 编码方式为UTF-8，注意，最后一次写入的数据将在调用<see cref="M:PinFun.Core.Net.Http.HttpResponse.End"/>方法时候写出
+            <para>注意：如果需要多次调用Write方法，请在外部自行设置content-length</para>
             </summary>
             <param name="content">文本内容</param>
         </member>
         <member name="M:PinFun.Core.Net.Http.HttpResponse.Write(System.Byte[])">
             <summary>
             向当前输出中写入数据，注意，最后一次写入的数据将在调用<see cref="M:PinFun.Core.Net.Http.HttpResponse.End"/>方法时候写出
+            <para>注意：如果需要多次调用Write方法，请在外部自行设置content-length</para>
             </summary>
             <param name="buffer"></param>
         </member>

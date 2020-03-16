@@ -225,16 +225,19 @@ function onmessageWS(e) {
     }
 
     var info = e.data.split('://');
-    if (info.length === 2) {
-        var data = info[1];
+    var event = info[0];
+    if (info.length >= 2) {
+        info.splice(0, 1);//移除事件名称
+        var data = info.join("://");//合并后续数据
         try {
-            data = JSON.parse(info[1]);
+            data = JSON.parse(data);
         }
         catch{ }
-        window.webEvent.fire(info[0], data);
+        window.webEvent.fire(event, data);
     }
     else {
         console.warn(`收到无法处理的WS推送数据:${e.data}`);
+        window.webEvent.fire("onError", e.data);
     }
 }
 

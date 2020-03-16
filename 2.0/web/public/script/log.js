@@ -17,17 +17,22 @@ function send(data) {
     }
     xhr.open("POST", api, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(data));
+    xhr.send(JSON.stringify(data).replace(/\n/, '<br/>'));
 }
 function getDatetime() {
     let now = new Date();
     return now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDay() + ' ' + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+}
+function formatText(text) {
+    if (typeof (text) === "string") return text;
+    return JSON.stringify(text);
 }
 // define a new console
 var myConsole = (function (oldCons) {
     return {
         trace: function (text) {
             oldCons.trace(text);
+            text = formatText(text);
             send({
                 category: channel,
                 level: 'trace',
@@ -37,6 +42,7 @@ var myConsole = (function (oldCons) {
         },
         debug: function (text) {
             oldCons.debug(text);
+            text = formatText(text);
             send({
                 category: channel,
                 level: 'debug',
@@ -46,6 +52,7 @@ var myConsole = (function (oldCons) {
         },
         log: function (text) {
             oldCons.log(text);
+            text = formatText(text);
             send({
                 category: channel,
                 level: 'log',
@@ -55,6 +62,7 @@ var myConsole = (function (oldCons) {
         },
         info: function (text) {
             oldCons.info(text);
+            text = formatText(text);
             send({
                 category: channel,
                 level: 'info',
@@ -64,6 +72,7 @@ var myConsole = (function (oldCons) {
         },
         warn: function (text) {
             oldCons.warn(text);
+            text = formatText(text);
             send({
                 category: channel,
                 level: 'warn',
@@ -73,6 +82,7 @@ var myConsole = (function (oldCons) {
         },
         error: function (text) {
             oldCons.error(text);
+            text = formatText(text);
             send({
                 category: channel,
                 level: 'error',
