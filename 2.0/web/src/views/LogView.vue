@@ -24,10 +24,14 @@
       </div>
     </div>
     <div class="body">
-      <div v-for="log in logdata" :key="log.id" :class="'log-item log-item-'+log.level">
+      <div
+        v-for="log in logdata"
+        :key="log.id"
+        :class="'log-item log-item-'+log.level+' bg-'+(log.id%2)"
+      >
         <div class="time">[[{{log.time}}]]</div>
         <div class="msg">
-          <log :msg="log.msg">v-html="log.msg"</log>
+          <log :msg="log.msg"></log>
         </div>
       </div>
     </div>
@@ -192,7 +196,7 @@ export default {
 }
 .log-item {
   font-size: 12px;
-  padding: 0 5px;
+  padding: 5px 5px 0 5px;
 }
 .time {
   padding-right: 10px;
@@ -220,5 +224,17 @@ export default {
 }
 .log-item-error {
   color: #e51010;
+}
+
+.bg-0 {
+  background: #fff;
+}
+
+.bg-1 {
+  background: #f5f5f5;
+}
+
+.json-view-container {
+  background: transparent;
 }
 </style>
