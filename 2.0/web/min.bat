@@ -1,0 +1,1 @@
+AjaxMin -js -clobber:y "public\script\log-source.js" -out "public\script\log.js"
