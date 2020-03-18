@@ -201,6 +201,7 @@ export default {
 .time {
   padding-right: 10px;
   float: left;
+  padding-top: 2px;
 }
 .msg {
   display: inline-block;
