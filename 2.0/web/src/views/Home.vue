@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     updateScript: function () {
-      this.script = `${window.location.protocol}//${window.location.host}/script/log.js?channel=${this.channel}`;
+      this.script = `${window.location.protocol}//${window.location.host}/log-script?channel=${this.channel}`;
       this.tobeCopyScript = "<script src='" + this.script + "'><" + "/script>";
     },
     copyScript: function () {
