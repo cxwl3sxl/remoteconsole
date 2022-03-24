@@ -1,0 +1,28 @@
+﻿{
+  "LogAllApiRequest": true,
+  "Services": [
+    "PinFun.Core.ServiceHost.WebHost.WebHost",
+    "PinFun.Core.ServiceHost.WebPush.WebPushHost"
+  ],
+  "WebHost": {
+    "Port": 9565,
+    "AllowCors": true,
+    "ApiConfig": {
+      "ApiUrl": "/api",
+      "LogAllRequest": true
+    },
+    "StaticFileConfig": {
+      "Uri": "/",
+      "BaseDir": "www"
+    }
+  },
+  "WebPushHost": {
+    "Port": 9566,
+    "LogAllRequest": false,
+    "Certificate": {
+      "CertificateFile": null,
+      "Password": null,
+      "IsPasswordEncrypted": false
+    }
+  }
+}

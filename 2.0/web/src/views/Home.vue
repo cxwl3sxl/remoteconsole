@@ -10,8 +10,16 @@
       </p>
       <p>
         2.
-        <button class="btnCopy" :data-clipboard-text="tobeCopyScript" @click="copyScript">复制</button>下面的脚本到你的页面即可
-        <span class="code">&lt;script src="{{script}}"&gt;&lt;/script&gt;</span>
+        <button
+          class="btnCopy"
+          :data-clipboard-text="tobeCopyScript"
+          @click="copyScript"
+        >
+          复制</button
+        >下面的脚本到你的页面即可
+        <span class="code"
+          >&lt;script src="{{ script }}"&gt;&lt;/script&gt;</span
+        >
       </p>
       <p>
         3. 在本页面
@@ -31,7 +39,7 @@ export default {
     return {
       script: "",
       channel: "",
-      tobeCopyScript: ""
+      tobeCopyScript: "",
     };
   },
   mounted() {
@@ -44,11 +52,11 @@ export default {
     this.updateScript();
   },
   methods: {
-    updateScript: function() {
+    updateScript: function () {
       this.script = `${window.location.protocol}//${window.location.host}/script/log.js?channel=${this.channel}`;
       this.tobeCopyScript = "<script src='" + this.script + "'><" + "/script>";
     },
-    copyScript: function() {
+    copyScript: function () {
       var clipboard = new Clipboard(".btnCopy");
       clipboard.on("success", () => {
         alert("复制成功");
@@ -60,25 +68,26 @@ export default {
       });
     },
     newId: () => {
-      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
-        c
-      ) {
-        var r = (Math.random() * 16) | 0,
-          v = c == "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-      });
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+          var r = (Math.random() * 16) | 0,
+            v = c == "x" ? r : (r & 0x3) | 0x8;
+          return v.toString(16);
+        }
+      );
     },
-    generateChannel: function() {
+    generateChannel: function () {
       let tmpChannel = this.newId();
       localStorage.setItem("_channelId", tmpChannel);
       this.channel = tmpChannel;
       this.updateScript();
     },
-    login: function() {
+    login: function () {
       initWs(() => this.channel);
       this.$router.push({ path: `/LogView/${this.channel}` });
     },
-    inputChannel: function() {
+    inputChannel: function () {
       let channel = window.prompt(
         "请输入您想要的Channel号，注意：相同的Channel日志是共享的。"
       );
@@ -87,8 +96,8 @@ export default {
         this.channel = channel;
         this.updateScript();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -104,6 +113,11 @@ button {
   border: 1px solid transparent;
   padding: 2px 10px;
 }
+
+button:hover {
+  box-shadow: 0px 0px 4px 1px #000000b8;
+}
+
 .home {
   padding-top: 50px;
 }

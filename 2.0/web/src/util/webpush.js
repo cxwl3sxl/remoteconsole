@@ -1,5 +1,3 @@
-import defaultSettings from '@/settings'
-
 let Socket = null;
 let PingInterval = null;
 let connectCallBack;
@@ -258,7 +256,7 @@ function oncloseWS() {
 }
 
 function createWS() {
-    console.debug(`正在连接到WS服务器${defaultSettings.pushUrl}...`);
+    console.debug(`正在连接到WS服务器${pushUrl}...`);
     if (Socket) {
         Socket.onopen = null;
         Socket.onmessage = null;
@@ -267,7 +265,7 @@ function createWS() {
         Socket.close();
         Socket = null;
     }
-    Socket = new WebSocket(defaultSettings.pushUrl);
+    Socket = new WebSocket(pushUrl);
     Socket.onopen = openWs;
     Socket.onmessage = onmessageWS;
     Socket.onerror = onerrorWS;
@@ -295,7 +293,7 @@ function subscribeChangedHandller(type, count) {
  */
 export function initWs(loginCallback) {
     window.webEvent = new WebEvent(subscribeChangedHandller);
-    if (!defaultSettings.pushUrl) {
+    if (!pushUrl) {
         console.warn("当前尚未配置任何websocket服务器地址");
         return;
     }
