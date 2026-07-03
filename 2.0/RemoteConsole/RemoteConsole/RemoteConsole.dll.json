@@ -1,4 +1,4 @@
-﻿{
+{
   "LogAllApiRequest": true,
   "Services": [
     "PinFun.Core.ServiceHost.WebHost.WebHost",
@@ -24,5 +24,10 @@
       "Password": null,
       "IsPasswordEncrypted": false
     }
-  }
+  },
+  "WsUrl": "" //
+  /*
+  模式1、://xxx.com -> 前端自动补充 ws 或 wss
+  模式2、/ws -> 前端自动补充 ws://xxx.com 或 wss://xxx.com
+  */
 }

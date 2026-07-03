@@ -230,7 +230,7 @@ function onmessageWS(e) {
         try {
             data = JSON.parse(data);
         }
-        catch{ }
+        catch { }
         window.webEvent.fire(event, data);
     }
     else {
@@ -256,7 +256,21 @@ function oncloseWS() {
 }
 
 function createWS() {
-    console.debug(`正在连接到WS服务器${pushUrl}...`);
+    let ws = pushUrl;
+    if (!ws) {
+        console.error("未配置WebSocket服务器地址");
+        return;
+    }
+
+    // Pattern 1: ://xxx.com -> 自动补充 ws 或 wss
+    if (ws.startsWith('://')) {
+        ws = (location.protocol === 'https:' ? 'wss' : 'ws') + ws;
+    }
+    // Pattern 2: /ws -> 自动补充 ws://xxx.com 或 wss://xxx.com
+    else if (ws.startsWith('/')) {
+        ws = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + ws;
+    }
+    console.debug(`正在连接到WS服务器${ws}...`);
     if (Socket) {
         Socket.onopen = null;
         Socket.onmessage = null;
@@ -265,7 +279,7 @@ function createWS() {
         Socket.close();
         Socket = null;
     }
-    Socket = new WebSocket(pushUrl);
+    Socket = new WebSocket(ws);
     Socket.onopen = openWs;
     Socket.onmessage = onmessageWS;
     Socket.onerror = onerrorWS;

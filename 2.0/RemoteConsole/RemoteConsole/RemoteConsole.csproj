@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PinFun.Core" Version="2.22.3.2" />
-    <PackageReference Include="PinFun.ServiceContainer" Version="2.22.3.2" />
+    <PackageReference Include="PinFun.Core" Version="4.1.2607.1" />
+    <PackageReference Include="PinFun.ServiceContainer" Version="4.1.2607.1" />
   </ItemGroup>
 
   <ItemGroup>
