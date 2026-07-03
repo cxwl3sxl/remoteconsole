@@ -1,4 +1,7 @@
-﻿namespace RemoteConsole
+using System.Runtime.InteropServices;
+
+[assembly:Guid("5612a06f-00bc-458b-b17c-0f52c7c8482d")]
+namespace RemoteConsole
 {
     class Program
     {

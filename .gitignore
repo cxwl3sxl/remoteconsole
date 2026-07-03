@@ -4,3 +4,4 @@
 /.vs
 dest
 /_ReSharper.Caches
+package-lock.json
